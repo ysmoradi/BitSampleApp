@@ -108,8 +108,8 @@ namespace SampleApp
                 odataDependencyManager.RegisterWebApiODataMiddlewareUsingDefaultConfiguration();
             });
 
-            dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
-            dependencyManager.RegisterEfCoreDbContext<SampleAppDbContext, SqlDbContextObjectsProvider>();
+            //dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
+            dependencyManager.RegisterEfCoreDbContext<SampleAppDbContext, InMemoryDbContextObjectsProvider>();
             dependencyManager.RegisterAppEvents<SampleAppDbContextInitializer>();
             dependencyManager.RegisterRepository(typeof(SampleAppRepository<>).GetTypeInfo());
 

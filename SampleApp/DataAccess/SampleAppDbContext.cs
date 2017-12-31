@@ -9,7 +9,7 @@ namespace SampleApp.DataAccess
 {
     public class SampleAppDbContext : EfCoreDbContextBase
     {
-        public SampleAppDbContext() : base(new DbContextOptionsBuilder().UseSqlServer(DefaultAppEnvironmentProvider.Current.GetActiveAppEnvironment().GetConfig<string>("AppConnectionString")).Options)
+        public SampleAppDbContext() : base(new DbContextOptionsBuilder().UseInMemoryDatabase("SampleAppDatabase").Options)
         {
 
         }
