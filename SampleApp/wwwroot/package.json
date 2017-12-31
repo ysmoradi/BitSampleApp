@@ -1,0 +1,8 @@
+{
+  "name": "sample-app",
+  "dependencies": {
+    "@bit/bit-framework": "^0.6.1",
+    "@bit/jaydata": "^1.5.15",
+    "@bit/jaydata-odatajs": "^4.0.1"
+  }
+}

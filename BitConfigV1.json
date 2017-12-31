@@ -1,0 +1,31 @@
+{
+  "Schema": {
+    "HtmlSchemaFiles": [
+      "SampleApp/wwwroot/node_modules/@bit/bit-framework/html-elements-schema.json"
+    ]
+  },
+  "BitCodeGeneratorConfigs": {
+    "BitCodeGeneratorMappings": [
+      {
+        "Route": "SampleApp",
+        "Namespace": "SampleApp",
+        "DestinationFileName": "wwwroot/SampleApp.Model.Context",
+        "TypingsPath": "node_modules/@bit/bit-framework/typings.all.d.ts",
+        "SourceProjects": [
+          {
+            "Name": "SampleApp"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "SampleApp"
+        },
+        "NamespaceAliases": [
+          {
+            "Namespace": "SampleApp.Dto",
+            "Alias": "SampleAppModel"
+          }
+        ]
+      }
+    ]
+  }
+}

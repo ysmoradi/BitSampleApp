@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net4.6.1</TargetFramework>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\index.ts" />
+    <Content Remove="wwwroot\SampleApp.Model.Context.d.ts" />
+    <Content Remove="wwwroot\SampleApp.Model.Context.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bit.Data.EntityFrameworkCore" Version="0.8.9" />
+    <PackageReference Include="Bit.OData" Version="0.8.9" />
+    <PackageReference Include="Bit.OwinCore" Version="0.8.9" />
+    <PackageReference Include="Bit.OwinCore.AspNetCore2Upgrade" Version="0.8.9" />
+    <PackageReference Include="BitCodeAnalyzer" Version="1.1.9.8" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\index.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="environments.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

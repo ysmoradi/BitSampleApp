@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Name": "Development",
+    "IsActive": true,
+    "DebugMode": true,
+    "AppInfo": {
+      "Name": "SampleApp",
+      "Version": "1"
+    },
+    "Configs": [
+      {
+        "Key": "AppConnectionString",
+        "Value": "Data Source=.;Initial Catalog=SampleAppDb;Integrated Security=True;"
+      }
+    ]
+  }
+]
