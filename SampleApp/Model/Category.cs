@@ -1,5 +1,4 @@
 ﻿using Bit.Model.Contracts;
-using SampleApp.Model.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SampleApp.Model
 {
-    public class Category : IEntity, ISyncableEntity
+    public class Category : ISyncableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

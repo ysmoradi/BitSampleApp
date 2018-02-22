@@ -9,8 +9,8 @@
     },
     "Configs": [
       {
-        "Key": "AppConnectionString",
-        "Value": "Data Source=.;Initial Catalog=SampleAppDb;Integrated Security=True;"
+        "Key": "IdentityCertificatePassword",
+        "Value": "P@ssw0rd"
       }
     ]
   }

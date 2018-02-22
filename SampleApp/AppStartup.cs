@@ -1,14 +1,17 @@
 ﻿using Bit.Core;
 using Bit.Core.Contracts;
-using Bit.Data;
-using Bit.Data.Contracts;
 using Bit.Data.EntityFrameworkCore.Implementations;
+using Bit.IdentityServer.Contracts;
+using Bit.IdentityServer.Implementations;
 using Bit.Model.Implementations;
+using Bit.OData.ActionFilters;
 using Bit.OData.Implementations;
+using Bit.Owin.Exceptions;
 using Bit.Owin.Implementations;
 using Bit.OwinCore;
 using Bit.OwinCore.Contracts;
 using Bit.OwinCore.Middlewares;
+using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using SampleApp.Api.Implementations;
@@ -18,8 +21,8 @@ using SampleApp.Dto.Implementations;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SampleApp
 {
@@ -74,6 +77,8 @@ namespace SampleApp
 
             dependencyManager.RegisterMinimalAspNetCoreMiddlewares();
 
+            dependencyManager.RegisterAspNetCoreSingleSignOnClient();
+
             dependencyManager.RegisterMetadata();
 
             dependencyManager.RegisterDefaultWebApiAndODataConfiguration();
@@ -81,6 +86,11 @@ namespace SampleApp
             dependencyManager.RegisterWebApiMiddleware(webApiDependencyManager =>
             {
                 webApiDependencyManager.RegisterWebApiMiddlewareUsingDefaultConfiguration();
+
+                webApiDependencyManager.RegisterGlobalWebApiActionFiltersUsing(httpConfiguration =>
+                {
+                    httpConfiguration.Filters.Add(new System.Web.Http.AuthorizeAttribute());
+                });
 
                 webApiDependencyManager.RegisterGlobalWebApiCustomizerUsing(httpConfiguration =>
                 {
@@ -94,6 +104,11 @@ namespace SampleApp
 
             dependencyManager.RegisterODataMiddleware(odataDependencyManager =>
             {
+                odataDependencyManager.RegisterGlobalWebApiActionFiltersUsing(httpConfiguration =>
+                {
+                    httpConfiguration.Filters.Add(new DefaultODataAuthorizeAttribute());
+                });
+
                 odataDependencyManager.RegisterGlobalWebApiCustomizerUsing(httpConfiguration =>
                 {
                     httpConfiguration.EnableSwagger(c =>
@@ -108,7 +123,7 @@ namespace SampleApp
                 odataDependencyManager.RegisterWebApiODataMiddlewareUsingDefaultConfiguration();
             });
 
-            //dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
+            //dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>(); // InMemory: See line below!
             dependencyManager.RegisterEfCoreDbContext<SampleAppDbContext, InMemoryDbContextObjectsProvider>();
             dependencyManager.RegisterAppEvents<SampleAppDbContextInitializer>();
             dependencyManager.RegisterRepository(typeof(SampleAppRepository<>).GetTypeInfo());
@@ -117,7 +132,54 @@ namespace SampleApp
             dependencyManager.RegisterDtoEntityMapperConfiguration<DefaultDtoEntityMapperConfiguration>();
             dependencyManager.RegisterDtoEntityMapperConfiguration<SampleAppDtoEntityMapperConfiguration>();
 
+            dependencyManager.RegisterSingleSignOnServer<SampleAppUserService, SampleAppClientProvider>();
+
             dependencyManager.RegisterDefaultPageMiddlewareUsingDefaultConfiguration();
+        }
+    }
+
+    public class SampleAppClientProvider : ClientProvider
+    {
+        public virtual IAppEnvironmentProvider AppEnvironmentProvider { get; set; }
+
+        public override IEnumerable<Client> GetClients()
+        {
+            return new[]
+            {
+                GetResourceOwnerFlowClient(new BitResourceOwnerFlowClient
+                {
+                    ClientId = "SampleApp-ResOwner",
+                    ClientName = "SampleApp-ResOwner",
+                    Secret = "secret",
+                    TokensLifetime = TimeSpan.FromDays(7)
+                })
+            };
+        }
+    }
+    public class SampleAppUserService : UserService
+    {
+        public virtual IDependencyManager DependencyManager { get; set; }
+
+        public override async Task<string> GetUserIdByLocalAuthenticationContextAsync(LocalAuthenticationContext context)
+        {
+            string username = context.UserName;
+            string password = context.Password;
+
+            if (string.IsNullOrEmpty(username))
+                throw new ArgumentException(nameof(username));
+
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentException(nameof(password));
+
+            if (username == password)
+                return username;
+
+            throw new DomainLogicException("LoginFailed");
+        }
+
+        public override async Task<bool> UserIsActiveAsync(IsActiveContext context, string userId)
+        {
+            return true;
         }
     }
 }

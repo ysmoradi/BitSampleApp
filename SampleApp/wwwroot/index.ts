@@ -4,6 +4,9 @@
     const metadataProvider = new Bit.Implementations.DefaultMetadataProvider();
     const contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider);
     const syncService = new Bit.Implementations.DefaultSyncService();
+    const securityService = new Bit.Implementations.DefaultSecurityService();
+
+    await securityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret");
 
     const context = await contextProvider.getContext<SampleAppContext>("SampleApp");
 

@@ -15,7 +15,7 @@ namespace SampleApp.DataAccess
         }
 
         public SampleAppDbContext(IAppEnvironmentProvider appEnvironmentProvider, IDbContextObjectsProvider dbContextCreationOptionsProvider)
-              : base(appEnvironmentProvider.GetActiveAppEnvironment().GetConfig<string>("AppConnectionString"), dbContextCreationOptionsProvider)
+              : base("SampleAppDatabase", dbContextCreationOptionsProvider)
         {
 
         }

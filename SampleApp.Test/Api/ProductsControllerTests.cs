@@ -1,6 +1,7 @@
 ﻿using Bit.Data.Contracts;
 using Bit.Test;
 using FakeItEasy;
+using IdentityModel.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SampleApp.Api;
 using SampleApp.Dto;
@@ -32,7 +33,9 @@ namespace ImaanPlus.Test.Api
                 }
             }))
             {
-                ODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp");
+                TokenResponse token = await testEnvironment.Server.Login("Test", "Test", "SampleApp-ResOwner");
+
+                ODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
 
                 try
                 {
@@ -61,7 +64,9 @@ namespace ImaanPlus.Test.Api
                 }
             }))
             {
-                ODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp");
+                TokenResponse token = await testEnvironment.Server.Login("Test", "Test", "SampleApp-ResOwner");
+
+                ODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
 
                 try
                 {

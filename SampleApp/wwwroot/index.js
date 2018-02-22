@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 (function () { return __awaiter(_this, void 0, void 0, function () {
-    var guidUtils, metadataProvider, contextProvider, syncService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa;
+    var guidUtils, metadataProvider, contextProvider, syncService, securityService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -43,8 +43,12 @@ var _this = this;
                 metadataProvider = new Bit.Implementations.DefaultMetadataProvider();
                 contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider);
                 syncService = new Bit.Implementations.DefaultSyncService();
-                return [4 /*yield*/, contextProvider.getContext("SampleApp")];
+                securityService = new Bit.Implementations.DefaultSecurityService();
+                return [4 /*yield*/, securityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret")];
             case 1:
+                _a.sent();
+                return [4 /*yield*/, contextProvider.getContext("SampleApp")];
+            case 2:
                 context = _a.sent();
                 return [4 /*yield*/, context.categories.getEmptyCategories()
                         .withInlineCount()
@@ -53,41 +57,41 @@ var _this = this;
                         .take(1)
                         .skip(1)
                         .toArray()];
-            case 2:
-                t1 = _a.sent();
-                _a.label = 3;
             case 3:
-                _a.trys.push([3, 5, , 6]);
-                return [4 /*yield*/, context.products.deactivateProductById(guidUtils.newGuid())];
+                t1 = _a.sent();
+                _a.label = 4;
             case 4:
-                _a.sent();
-                return [3 /*break*/, 6];
+                _a.trys.push([4, 6, , 7]);
+                return [4 /*yield*/, context.products.deactivateProductById(guidUtils.newGuid())];
             case 5:
+                _a.sent();
+                return [3 /*break*/, 7];
+            case 6:
                 e_1 = _a.sent();
                 // error messages
                 console.log(e_1.message);
-                return [3 /*break*/, 6];
-            case 6:
+                return [3 /*break*/, 7];
+            case 7:
                 category = context.categories.add(new SampleAppModel.CategoryDto({ Id: guidUtils.newGuid(), Name: "C1" }));
                 p1 = context.products.add(new SampleAppModel.ProductDto({ Id: guidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
                 p2 = context.products.add(new SampleAppModel.ProductDto({ Id: guidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
                 return [4 /*yield*/, context.saveChanges()];
-            case 7:
+            case 8:
                 _a.sent();
                 return [4 /*yield*/, context.batchExecuteQuery([context.categories.filter(function (c) { return c.AllProductsAreActive == true; }), context.products])];
-            case 8:
+            case 9:
                 result = _a.sent();
                 return [4 /*yield*/, contextProvider.getContext("SampleApp", { isOffline: true })];
-            case 9:
+            case 10:
                 offlineContext = _a.sent();
                 // sync
                 syncService.init(function () { return contextProvider.getContext("SampleApp"); }, function () { return contextProvider.getContext("SampleApp", { isOffline: true }); });
                 syncService.addEntitySetConfig(offlineContext.categories);
                 return [4 /*yield*/, syncService.syncContext()];
-            case 10:
+            case 11:
                 _a.sent();
                 return [4 /*yield*/, offlineContext.categories.filter(function (c) { return c.ProductsCount == 0; }).toArray()];
-            case 11:
+            case 12:
                 aaa = _a.sent();
                 return [2 /*return*/];
         }
