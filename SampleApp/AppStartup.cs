@@ -36,15 +36,15 @@ namespace SampleApp
 
         public override IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            DefaultDependenciesManagerProvider.Current = new SampleAppDependenciesManager();
+            DefaultAppModulesProvider.Current = new SampleAppModulesProvider();
 
             return base.ConfigureServices(services);
         }
     }
 
-    public class SampleAppDependenciesManager : IAspNetCoreDependenciesManager, IDependenciesManagerProvider
+    public class SampleAppModulesProvider : IAspNetCoreAppModule, IAppModulesProvider
     {
-        public IEnumerable<IDependenciesManager> GetDependenciesManagers()
+        public IEnumerable<IAppModule> GetAppModules()
         {
             yield return this;
         }

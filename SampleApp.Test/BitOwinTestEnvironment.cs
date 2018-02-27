@@ -17,7 +17,7 @@ namespace SampleApp.Test
         {
             args = args ?? new TestEnvironmentArgs();
 
-            args.CustomDependenciesManagerProvider = args.CustomDependenciesManagerProvider ?? new SampleAppDependenciesManager();
+            args.CustomAppModulesProvider = args.CustomAppModulesProvider ?? new SampleAppModulesProvider();
 
             args.UseAspNetCore = true;
 
