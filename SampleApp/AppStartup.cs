@@ -151,7 +151,8 @@ namespace SampleApp
                     ClientId = "SampleApp-ResOwner",
                     ClientName = "SampleApp-ResOwner",
                     Secret = "secret",
-                    TokensLifetime = TimeSpan.FromDays(7)
+                    TokensLifetime = TimeSpan.FromDays(7),
+                    Enabled = true
                 })
             };
         }
