@@ -7,10 +7,6 @@
       "Name": "SampleApp",
       "Version": "1"
     },
-    "Security": {
-      "ClientId": "SampleApp",
-      "ClientSecret": "secret"
-    },
     "Configs": [
       {
         "Key": "IdentityCertificatePassword",

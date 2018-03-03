@@ -98,7 +98,7 @@ namespace SampleApp
                     {
                         c.SingleApiVersion("v1", $"Swagger-Api");
                         c.ApplyDefaultApiConfig(httpConfiguration);
-                    }).EnableSwaggerUi();
+                    }).EnableBitSwaggerUi();
                 });
             });
 
@@ -115,7 +115,7 @@ namespace SampleApp
                     {
                         c.SingleApiVersion("v1", $"Swagger-Api");
                         c.ApplyDefaultODataConfig(httpConfiguration);
-                    }).EnableSwaggerUi();
+                    }).EnableBitSwaggerUi();
                 });
 
                 odataDependencyManager.RegisterODataServiceBuilder<BitODataServiceBuilder>();
@@ -134,7 +134,7 @@ namespace SampleApp
 
             dependencyManager.RegisterSingleSignOnServer<SampleAppUserService, SampleAppClientProvider>();
 
-            dependencyManager.RegisterDefaultPageMiddlewareUsingDefaultConfiguration();
+            dependencyManager.RegisterIndexPageMiddlewareUsingDefaultConfiguration();
         }
     }
 

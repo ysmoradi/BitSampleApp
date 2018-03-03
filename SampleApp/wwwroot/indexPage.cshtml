@@ -4,7 +4,7 @@
 @inherits RazorViewTemplate
 
 @{
-    DefaultPageModel model = Resolve<IDefaultPageModelProvider>().GetDefaultPageModel();
+    IndexPageModel model = Resolve<IIndexPageModelProvider>().GetIndexPageModel();
 }
 
 <!DOCTYPE html>
@@ -34,7 +34,6 @@
         };
     </script>
     <script src="Files/V@(model.AppVersion)/node_modules/@("@")bit/bit-framework/bit.core.js"></script>
-    <script src="Files/V@(model.AppVersion)/node_modules/@("@")bit/jaydata-odatajs/jaydata-odatajs-4.0.1.min.js"></script>
     <script src="Files/V@(model.AppVersion)/node_modules/@("@")bit/jaydata/jaydata.min.js"></script>
     <script src="Files/V@(model.AppVersion)/node_modules/@("@")bit/jaydata/jaydataproviders/oDataProvider.min.js"></script>
     <script src="Files/V@(model.AppVersion)/node_modules/@("@")bit/jaydata/jaydataproviders/SqLiteProvider.min.js"></script>
