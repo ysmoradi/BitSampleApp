@@ -35,7 +35,7 @@ namespace ImaanPlus.Test.Api
             {
                 TokenResponse token = await testEnvironment.Server.Login("Test", "Test", "SampleApp-ResOwner");
 
-                ODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
+                IODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
 
                 try
                 {

@@ -2,20 +2,10 @@
 # yarn lockfile v1
 
 
-"@bit/bit-framework@^0.6.2":
-  version "0.6.2"
-  resolved "https://www.myget.org/F/bit-foundation/npm/@bit/bit-framework/-/@bit/bit-framework-0.6.2.tgz#858c7f0b5cf80f7b21cb4038180bb3d75816641f"
-
-"@bit/jaydata-odatajs@^4.0.1":
-  version "4.0.1"
-  resolved "https://www.myget.org/F/bit-foundation/npm/@bit/jaydata-odatajs/-/@bit/jaydata-odatajs-4.0.1.tgz#b7b37517fd13edb5c17c9fe80c96a344e10c1041"
-  dependencies:
-    xmldom "^0.1.19"
+"@bit/bit-framework@^0.9.6":
+  version "0.9.6"
+  resolved "https://www.myget.org/F/bit-foundation/npm/@bit/bit-framework/-/@bit/bit-framework-0.9.6.tgz#05a2fa02e3a81c8002b799fd5344222184359008"
 
 "@bit/jaydata@^1.5.15":
   version "1.5.15"
   resolved "https://www.myget.org/F/bit-foundation/npm/@bit/jaydata/-/@bit/jaydata-1.5.15.tgz#d85dc56f713b6267a366018c0df27b2f0938bede"
-
-xmldom@^0.1.19:
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"

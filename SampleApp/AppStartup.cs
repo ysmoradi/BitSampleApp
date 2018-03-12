@@ -57,8 +57,6 @@ namespace SampleApp
 
             dependencyManager.RegisterDefaultLogger(typeof(DebugLogStore).GetTypeInfo(), typeof(ConsoleLogStore).GetTypeInfo());
 
-            dependencyManager.RegisterAppEvents<RazorViewEngineConfiguration>();
-
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
             services.AddResponseCompression();
