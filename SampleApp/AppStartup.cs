@@ -138,8 +138,6 @@ namespace SampleApp
 
     public class SampleAppClientProvider : ClientProvider
     {
-        public virtual IAppEnvironmentProvider AppEnvironmentProvider { get; set; }
-
         public override IEnumerable<Client> GetClients()
         {
             return new[]
@@ -157,8 +155,6 @@ namespace SampleApp
     }
     public class SampleAppUserService : UserService
     {
-        public virtual IDependencyManager DependencyManager { get; set; }
-
         public override async Task<string> GetUserIdByLocalAuthenticationContextAsync(LocalAuthenticationContext context)
         {
             string username = context.UserName;

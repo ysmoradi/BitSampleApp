@@ -1,6 +1,4 @@
-﻿using Bit.Core.Contracts;
-using Bit.Core.Implementations;
-using Bit.Data.EntityFrameworkCore.Contracts;
+﻿using Bit.Data.EntityFrameworkCore.Contracts;
 using Bit.Data.EntityFrameworkCore.Implementations;
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Model;
@@ -14,7 +12,7 @@ namespace SampleApp.DataAccess
 
         }
 
-        public SampleAppDbContext(IAppEnvironmentProvider appEnvironmentProvider, IDbContextObjectsProvider dbContextCreationOptionsProvider)
+        public SampleAppDbContext(IDbContextObjectsProvider dbContextCreationOptionsProvider)
               : base("SampleAppDatabase", dbContextCreationOptionsProvider)
         {
 

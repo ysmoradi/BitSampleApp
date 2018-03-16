@@ -1,9 +1,4 @@
 {
-  "Schema": {
-    "HtmlSchemaFiles": [
-      "SampleApp/wwwroot/node_modules/@bit/bit-framework/html-elements-schema.json"
-    ]
-  },
   "BitCodeGeneratorConfigs": {
     "BitCodeGeneratorMappings": [
       {
