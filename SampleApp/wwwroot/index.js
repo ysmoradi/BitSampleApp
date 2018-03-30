@@ -35,15 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 (function () { return __awaiter(_this, void 0, void 0, function () {
-    var guidUtils, metadataProvider, contextProvider, syncService, securityService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa;
+    var securityService, guidUtils, metadataProvider, contextProvider, syncService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                securityService = new Bit.Implementations.DefaultSecurityService();
                 guidUtils = new Bit.Implementations.DefaultGuidUtils();
                 metadataProvider = new Bit.Implementations.DefaultMetadataProvider();
-                contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider);
+                contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider, securityService);
                 syncService = new Bit.Implementations.DefaultSyncService();
-                securityService = new Bit.Implementations.DefaultSecurityService();
                 return [4 /*yield*/, securityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret")];
             case 1:
                 _a.sent();
@@ -86,7 +86,7 @@ var _this = this;
                 offlineContext = _a.sent();
                 // sync
                 syncService.init(function () { return contextProvider.getContext("SampleApp"); }, function () { return contextProvider.getContext("SampleApp", { isOffline: true }); });
-                syncService.addEntitySetConfig(offlineContext.categories);
+                syncService.addEntitySetConfig({ name: "categories", dtoType: SampleAppModel.CategoryDto });
                 return [4 /*yield*/, syncService.syncContext()];
             case 11:
                 _a.sent();

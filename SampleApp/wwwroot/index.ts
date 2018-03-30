@@ -1,10 +1,10 @@
 ﻿(async () => {
 
+    const securityService = new Bit.Implementations.DefaultSecurityService();
     const guidUtils = new Bit.Implementations.DefaultGuidUtils();
     const metadataProvider = new Bit.Implementations.DefaultMetadataProvider();
-    const contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider);
+    const contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider, securityService);
     const syncService = new Bit.Implementations.DefaultSyncService();
-    const securityService = new Bit.Implementations.DefaultSecurityService();
 
     await securityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret");
 
@@ -42,7 +42,7 @@
 
     // sync
     syncService.init(() => contextProvider.getContext<SampleAppContext>("SampleApp"), () => contextProvider.getContext<SampleAppContext>("SampleApp", { isOffline: true }));
-    syncService.addEntitySetConfig<SampleAppContext>(offlineContext.categories);
+    syncService.addEntitySetConfig<SampleAppContext>({ name: "categories", dtoType: SampleAppModel.CategoryDto });
 
     await syncService.syncContext();
 
