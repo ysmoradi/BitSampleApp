@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@bit/bit-framework@^0.9.7":
-  version "0.9.9"
-  resolved "https://www.myget.org/F/bit-foundation/npm/@bit/bit-framework/-/@bit/bit-framework-0.9.9.tgz#4bc27dd9d296435a55c620150bf042ced3d0bc83"
+"@bit/bit-framework@^1.0.0":
+  version "1.0.0"
+  resolved "https://www.myget.org/F/bit-foundation/npm/@bit/bit-framework/-/@bit/bit-framework-1.0.0.tgz#10df69af75f2f6695e4ad181b064cce5f9d5ef69"
 
 "@bit/jaydata@^1.5.15":
   version "1.5.15"
