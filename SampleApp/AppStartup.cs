@@ -22,6 +22,7 @@ using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SampleApp
@@ -136,7 +137,7 @@ namespace SampleApp
         }
     }
 
-    public class SampleAppClientProvider : ClientProvider
+    public class SampleAppClientProvider : OAuthClientsProvider
     {
         public override IEnumerable<Client> GetClients()
         {
@@ -155,7 +156,7 @@ namespace SampleApp
     }
     public class SampleAppUserService : UserService
     {
-        public override async Task<string> GetUserIdByLocalAuthenticationContextAsync(LocalAuthenticationContext context)
+        public override async Task<string> GetUserIdByLocalAuthenticationContextAsync(LocalAuthenticationContext context, CancellationToken cancellationToken)
         {
             string username = context.UserName;
             string password = context.Password;
@@ -172,7 +173,7 @@ namespace SampleApp
             throw new DomainLogicException("LoginFailed");
         }
 
-        public override async Task<bool> UserIsActiveAsync(IsActiveContext context, string userId)
+        public override async Task<bool> UserIsActiveAsync(IsActiveContext context, string userId, CancellationToken cancellationToken)
         {
             return true;
         }
