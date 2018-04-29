@@ -5,7 +5,7 @@ using Bit.IdentityServer.Contracts;
 using Bit.IdentityServer.Implementations;
 using Bit.Model.Implementations;
 using Bit.OData.ActionFilters;
-using Bit.OData.Implementations;
+using Bit.OData.Contracts;
 using Bit.Owin.Exceptions;
 using Bit.Owin.Implementations;
 using Bit.OwinCore;
@@ -14,7 +14,6 @@ using Bit.OwinCore.Middlewares;
 using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using SampleApp.Api.Implementations;
 using SampleApp.DataAccess;
 using SampleApp.DataAccess.Implementations;
 using SampleApp.Dto.Implementations;
@@ -24,6 +23,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+
+[assembly: ODataModule("SampleApp")]
 
 namespace SampleApp
 {
@@ -117,8 +118,6 @@ namespace SampleApp
                     }).EnableBitSwaggerUi();
                 });
 
-                odataDependencyManager.RegisterODataServiceBuilder<BitODataServiceBuilder>();
-                odataDependencyManager.RegisterODataServiceBuilder<SampleAppODataServiceBuilder>();
                 odataDependencyManager.RegisterWebApiODataMiddlewareUsingDefaultConfiguration();
             });
 
