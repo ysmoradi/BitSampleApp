@@ -44,14 +44,14 @@ namespace SampleApp
         }
     }
 
-    public class SampleAppModulesProvider : IAspNetCoreAppModule, IAppModulesProvider
+    public class SampleAppModulesProvider : IAppModule, IAppModulesProvider
     {
         public IEnumerable<IAppModule> GetAppModules()
         {
             yield return this;
         }
 
-        public virtual void ConfigureDependencies(IServiceProvider serviceProvider, IServiceCollection services, IDependencyManager dependencyManager)
+        public virtual void ConfigureDependencies(IServiceCollection services, IDependencyManager dependencyManager)
         {
             AssemblyContainer.Current.Init();
 
