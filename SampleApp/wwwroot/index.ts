@@ -19,6 +19,14 @@
         .skip(1)
         .toArray();
 
+    context.categories.getEmptyCategories()
+        .filter((c, arg) => c.Name == arg, { arg: new Date().getDay() /*Some variable for example...*/ })
+        .toArray();
+
+    context.categories.getEmptyCategories()
+        .filter(`(c, arg) => c.Name == arg`, { arg: new Date().getDay() /*Some variable for example...*/ })
+        .toArray();
+
     // action
     try {
         await context.products.deactivateProductById(guidUtils.newGuid());

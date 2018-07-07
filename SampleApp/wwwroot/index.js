@@ -59,6 +59,12 @@ var _this = this;
                         .toArray()];
             case 3:
                 t1 = _a.sent();
+                context.categories.getEmptyCategories()
+                    .filter(function (c, arg) { return c.Name == arg; }, { arg: new Date().getDay() /*Some variable for example...*/ })
+                    .toArray();
+                context.categories.getEmptyCategories()
+                    .filter("(c, arg) => c.Name == arg", { arg: new Date().getDay() /*Some variable for example...*/ })
+                    .toArray();
                 _a.label = 4;
             case 4:
                 _a.trys.push([4, 6, , 7]);
