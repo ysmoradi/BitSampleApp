@@ -20,6 +20,26 @@
             "Alias": "SampleAppModel"
           }
         ]
+      },
+      {
+        "Route": "SampleApp",
+        "Namespace": "SampleApp",
+        "DestinationFileName": "WebSite/src/app/SampleApp.Model.Context",
+        "TypingsPath": "../../node_modules/@bit/jaydata/jaydata.d.ts",
+        "SourceProjects": [
+          {
+            "Name": "SampleApp"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "SampleApp"
+        },
+        "NamespaceAliases": [
+          {
+            "Namespace": "SampleApp.Dto",
+            "Alias": "SampleAppModel"
+          }
+        ]
       }
     ]
   }
