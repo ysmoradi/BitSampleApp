@@ -22,7 +22,7 @@ namespace ImaanPlus.Test.Api
         {
             using (BitOwinTestEnvironment testEnvironment = new BitOwinTestEnvironment(new TestEnvironmentArgs
             {
-                AdditionalDependencies = depManager =>
+                AdditionalDependencies = (depManager, services) =>
                 {
                     IRepository<Product> productsRepository = A.Fake<IRepository<Product>>();
 
@@ -53,7 +53,7 @@ namespace ImaanPlus.Test.Api
         {
             using (BitOwinTestEnvironment testEnvironment = new BitOwinTestEnvironment(new TestEnvironmentArgs
             {
-                AdditionalDependencies = depManager =>
+                AdditionalDependencies = (depManager, services) =>
                 {
                     IRepository<Product> productsRepository = A.Fake<IRepository<Product>>();
 
