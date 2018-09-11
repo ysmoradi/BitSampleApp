@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 (function () { return __awaiter(_this, void 0, void 0, function () {
-    var securityService, guidUtils, metadataProvider, contextProvider, syncService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa;
+    var securityService, guidUtils, metadataProvider, contextProvider, syncService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa, someConfig;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -99,6 +99,7 @@ var _this = this;
                 return [4 /*yield*/, offlineContext.categories.filter(function (c) { return c.ProductsCount == 0; }).toArray()];
             case 12:
                 aaa = _a.sent();
+                someConfig = clientAppProfile.getConfig("SomeConfig");
                 return [2 /*return*/];
         }
     });

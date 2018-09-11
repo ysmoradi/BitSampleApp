@@ -56,4 +56,6 @@
 
     const aaa = await offlineContext.categories.filter(c => c.ProductsCount == 0).toArray();
 
+    const someConfig = clientAppProfile.getConfig<boolean>("SomeConfig");
+
 })();

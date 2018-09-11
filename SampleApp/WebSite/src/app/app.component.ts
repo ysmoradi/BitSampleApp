@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EntityContextProvider, SecurityService, GuidUtils, SyncService } from './bit';
+import { EntityContextProvider, SecurityService, GuidUtils, SyncService, ClientAppProfile } from './bit';
 
 @Component({
   selector: 'app-root',
@@ -66,6 +66,6 @@ export class AppComponent {
 
     this.products = await context.products.toArray();
 
+    const someConfig = clientAppProfile.getConfig<boolean>("SomeConfig");
   }
-
 }

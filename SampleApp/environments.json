@@ -11,6 +11,11 @@
       {
         "Key": "IdentityCertificatePassword",
         "Value": "P@ssw0rd"
+      },
+      {
+        "Key": "SomeConfig",
+        "Value": true,
+        "AccessibleInClientSide": true
       }
     ]
   }
