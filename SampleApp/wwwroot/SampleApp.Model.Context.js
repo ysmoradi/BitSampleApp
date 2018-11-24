@@ -86,7 +86,7 @@ SampleAppContext = $data.EntityContext.extend("SampleAppContext", {
 							"actions": {
 													"getEmptyCategories": {
 								"type": "$data.ServiceFunction",
-								"namespace": "SampleApp",
+								"namespace": "Default",
 								"returnType":  "$data.Queryable" ,
 								 "elementType": "SampleApp.Dto.CategoryDto", 
 																	"params": [
@@ -100,7 +100,7 @@ SampleAppContext = $data.EntityContext.extend("SampleAppContext", {
 							"actions": {
 													"deactivateProductById": {
 								"type": "$data.ServiceAction",
-								"namespace": "SampleApp",
+								"namespace": "Default",
 								"returnType":  null ,
 																	"params": [
 																					{

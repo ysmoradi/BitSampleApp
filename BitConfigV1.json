@@ -3,7 +3,6 @@
     "BitCodeGeneratorMappings": [
       {
         "Route": "SampleApp",
-        "Namespace": "SampleApp",
         "DestinationFileName": "wwwroot/SampleApp.Model.Context",
         "TypingsPath": "node_modules/@bit/bit-framework/typings.all.d.ts",
         "SourceProjects": [
@@ -23,7 +22,6 @@
       },
       {
         "Route": "SampleApp",
-        "Namespace": "SampleApp",
         "DestinationFileName": "WebSite/src/app/SampleApp.Model.Context",
         "TypingsPath": "../../node_modules/@bit/jaydata/jaydata.d.ts",
         "SourceProjects": [
