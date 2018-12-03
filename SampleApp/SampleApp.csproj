@@ -6,13 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Data.EntityFrameworkCore" Version="1.3.80" />
-    <PackageReference Include="Bit.IdentityServer" Version="1.3.80" />
-    <PackageReference Include="Bit.OData" Version="1.3.80" />
-    <PackageReference Include="Bit.OwinCore" Version="1.3.80" />
-    <PackageReference Include="Bit.OwinCore.AspNetCore21Upgrade" Version="1.3.80" />
-    <PackageReference Include="BitCodeAnalyzer" Version="1.3.80" />
-    <PackageReference Include="BitCodeGeneratorTask" Version="1.3.80" />
+    <PackageReference Include="Bit.Data.EntityFrameworkCore" Version="1.3.90" />
+    <PackageReference Include="Bit.IdentityServer" Version="1.3.90" />
+    <PackageReference Include="Bit.OData" Version="1.3.90" />
+    <PackageReference Include="Bit.OwinCore" Version="1.3.90" />
+    <PackageReference Include="Bit.OwinCore.AspNetCore21Upgrade" Version="1.3.90" />
+    <PackageReference Include="BitCodeAnalyzer" Version="1.3.90" />
+    <PackageReference Include="BitCodeGeneratorTask" Version="1.3.90" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.4" />
