@@ -127,8 +127,8 @@ namespace SampleApp
             dependencyManager.RegisterRepository(typeof(SampleAppRepository<>).GetTypeInfo());
 
             dependencyManager.RegisterDtoEntityMapper();
-            dependencyManager.RegisterDtoEntityMapperConfiguration<DefaultDtoEntityMapperConfiguration>();
-            dependencyManager.RegisterDtoEntityMapperConfiguration<SampleAppDtoEntityMapperConfiguration>();
+            dependencyManager.RegisterMapperConfiguration<DefaultMapperConfiguration>();
+            dependencyManager.RegisterMapperConfiguration<SampleAppMapperConfiguration>();
 
             dependencyManager.RegisterSingleSignOnServer<SampleAppUserService, SampleAppClientProvider>();
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SampleApp.Dto.Implementations
 {
-    public class SampleAppDtoEntityMapperConfiguration : IDtoEntityMapperConfiguration
+    public class SampleAppMapperConfiguration : IMapperConfiguration
     {
         public virtual void Configure(IMapperConfigurationExpression mapperConfigExpression)
         {
