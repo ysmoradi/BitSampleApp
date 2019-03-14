@@ -61,11 +61,11 @@ namespace SampleApp
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            services.AddResponseCompression();
+            /*services.AddResponseCompression(); // => It's not working with AllowSynchronousIO = false; 
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
                 aspNetCoreApp.UseResponseCompression();
-            });
+            });*/
 
             services.AddCors();
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>

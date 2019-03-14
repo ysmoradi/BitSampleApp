@@ -12,7 +12,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ImaanPlus.Test.Api
+namespace SampleApp.Test.Api
 {
     [TestClass]
     public class ProductsControllerTests
