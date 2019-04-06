@@ -1,7 +1,7 @@
 {
   "name": "sample-app",
   "dependencies": {
-    "@bit/bit-framework": "^1.9.3",
-    "@bit/jaydata": "^1.5.17"
+    "@bit/bit-framework": "^2.0.0",
+    "@bit/jaydata": "^1.5.18"
   }
 }
