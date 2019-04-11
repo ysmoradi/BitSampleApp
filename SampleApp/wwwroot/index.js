@@ -35,22 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 (function () { return __awaiter(_this, void 0, void 0, function () {
-    var securityService, guidUtils, metadataProvider, contextProvider, syncService, context, t1, e_1, category, p1, p2, result, offlineContext, aaa, someConfig;
+    var SecurityService, MessageReciever, GuidUtils, MetadataProvider, EntityContextProvider, SyncService, DateTimeService, ClientAppProfileManager, ClientAppProfile, onlineContext, categories, e_1, category, product1, product2, result, offlineContext, categories2, someConfigFromServer;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                securityService = new Bit.Implementations.DefaultSecurityService();
-                guidUtils = new Bit.Implementations.DefaultGuidUtils();
-                metadataProvider = new Bit.Implementations.DefaultMetadataProvider();
-                contextProvider = new Bit.Implementations.EntityContextProviderBase(guidUtils, metadataProvider, securityService);
-                syncService = new Bit.Implementations.DefaultSyncService();
-                return [4 /*yield*/, securityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret")];
+                SecurityService = new Bit.Implementations.DefaultSecurityService();
+                MessageReciever = new Bit.Implementations.SignalRMessageReceiver();
+                GuidUtils = new Bit.Implementations.DefaultGuidUtils();
+                MetadataProvider = new Bit.Implementations.DefaultMetadataProvider();
+                EntityContextProvider = new Bit.Implementations.EntityContextProviderBase(GuidUtils, MetadataProvider, SecurityService);
+                SyncService = new Bit.Implementations.DefaultSyncService();
+                DateTimeService = new Bit.Implementations.DefaultDateTimeService();
+                ClientAppProfileManager = Bit.ClientAppProfileManager.getCurrent();
+                ClientAppProfile = ClientAppProfileManager.getClientAppProfile();
+                return [4 /*yield*/, SecurityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret")];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, contextProvider.getContext("SampleApp")];
+                return [4 /*yield*/, EntityContextProvider.getContext("SampleApp")];
             case 2:
-                context = _a.sent();
-                return [4 /*yield*/, context.categories.getEmptyCategories()
+                onlineContext = _a.sent();
+                return [4 /*yield*/, onlineContext.categories.getEmptyCategories()
                         .withInlineCount()
                         .filter(function (c) { return c.Name.includes("C"); })
                         .orderBy(function (c) { return c.Id; })
@@ -58,17 +62,17 @@ var _this = this;
                         .skip(1)
                         .toArray()];
             case 3:
-                t1 = _a.sent();
-                context.categories.getEmptyCategories()
+                categories = _a.sent();
+                onlineContext.categories.getEmptyCategories()
                     .filter(function (c, arg) { return c.Name == arg; }, { arg: new Date().getDay() /*Some variable for example...*/ })
                     .toArray();
-                context.categories.getEmptyCategories()
+                onlineContext.categories.getEmptyCategories()
                     .filter("(c, arg) => c.Name == arg", { arg: new Date().getDay() /*Some variable for example...*/ })
                     .toArray();
                 _a.label = 4;
             case 4:
                 _a.trys.push([4, 6, , 7]);
-                return [4 /*yield*/, context.products.deactivateProductById(guidUtils.newGuid())];
+                return [4 /*yield*/, onlineContext.products.deactivateProductById(GuidUtils.newGuid())];
             case 5:
                 _a.sent();
                 return [3 /*break*/, 7];
@@ -78,28 +82,28 @@ var _this = this;
                 console.log(e_1.message);
                 return [3 /*break*/, 7];
             case 7:
-                category = context.categories.add(new SampleAppModel.CategoryDto({ Id: guidUtils.newGuid(), Name: "C1" }));
-                p1 = context.products.add(new SampleAppModel.ProductDto({ Id: guidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
-                p2 = context.products.add(new SampleAppModel.ProductDto({ Id: guidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
-                return [4 /*yield*/, context.saveChanges()];
+                category = onlineContext.categories.add(new SampleAppModel.CategoryDto({ Id: GuidUtils.newGuid(), Name: "C1" }));
+                product1 = onlineContext.products.add(new SampleAppModel.ProductDto({ Id: GuidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
+                product2 = onlineContext.products.add(new SampleAppModel.ProductDto({ Id: GuidUtils.newGuid(), Name: "P1", CategoryId: category.Id, IsActive: true }));
+                return [4 /*yield*/, onlineContext.saveChanges()];
             case 8:
                 _a.sent();
-                return [4 /*yield*/, context.batchExecuteQuery([context.categories.filter(function (c) { return c.AllProductsAreActive == true; }), context.products])];
+                return [4 /*yield*/, onlineContext.batchExecuteQuery([onlineContext.categories.filter(function (c) { return c.AllProductsAreActive == true; }), onlineContext.products])];
             case 9:
                 result = _a.sent();
-                return [4 /*yield*/, contextProvider.getContext("SampleApp", { isOffline: true })];
+                return [4 /*yield*/, EntityContextProvider.getContext("SampleApp", { isOffline: true })];
             case 10:
                 offlineContext = _a.sent();
                 // sync
-                syncService.init(function () { return contextProvider.getContext("SampleApp"); }, function () { return contextProvider.getContext("SampleApp", { isOffline: true }); });
-                syncService.addEntitySetConfig({ name: "categories", dtoType: SampleAppModel.CategoryDto });
-                return [4 /*yield*/, syncService.syncContext()];
+                SyncService.init(function () { return EntityContextProvider.getContext("SampleApp"); }, function () { return EntityContextProvider.getContext("SampleApp", { isOffline: true }); });
+                SyncService.addEntitySetConfig({ name: "categories", dtoType: SampleAppModel.CategoryDto });
+                return [4 /*yield*/, SyncService.syncContext()];
             case 11:
                 _a.sent();
                 return [4 /*yield*/, offlineContext.categories.filter(function (c) { return c.ProductsCount == 0; }).toArray()];
             case 12:
-                aaa = _a.sent();
-                someConfig = clientAppProfile.getConfig("SomeConfig");
+                categories2 = _a.sent();
+                someConfigFromServer = ClientAppProfile.getConfig("SomeConfig");
                 return [2 /*return*/];
         }
     });

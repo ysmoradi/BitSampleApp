@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net4.6.1</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>
