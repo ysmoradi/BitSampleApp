@@ -4,6 +4,8 @@ namespace SampleApp.DataAccess.Implementations
 {
     public class SampleAppDbContextInitializer : IAppEvents
     {
+        public virtual IDependencyManager DependencyManager { get; set; }
+
         public virtual void OnAppEnd()
         {
 
@@ -11,8 +13,9 @@ namespace SampleApp.DataAccess.Implementations
 
         public virtual void OnAppStartup()
         {
-            using (SampleAppDbContext dbContext = new SampleAppDbContext())
+            using (IDependencyResolver dependencyResolver = DependencyManager.CreateChildDependencyResolver())
             {
+                SampleAppDbContext dbContext = dependencyResolver.Resolve<SampleAppDbContext>();
                 dbContext.Database.EnsureCreated();
             }
         }

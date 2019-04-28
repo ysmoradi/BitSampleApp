@@ -5,7 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Test" Version="2.0.0" />
+    <Content Include="..\SampleApp\environments.json" Link="environments.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\SampleApp\IdentityServerCertificate.pfx" Link="IdentityServerCertificate.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bit.Test" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />

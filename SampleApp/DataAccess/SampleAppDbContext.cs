@@ -1,5 +1,4 @@
-﻿using Bit.Data.EntityFrameworkCore.Contracts;
-using Bit.Data.EntityFrameworkCore.Implementations;
+﻿using Bit.Data.EntityFrameworkCore.Implementations;
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Model;
 
@@ -7,13 +6,8 @@ namespace SampleApp.DataAccess
 {
     public class SampleAppDbContext : EfCoreDbContextBase
     {
-        public SampleAppDbContext() : base(new DbContextOptionsBuilder().UseInMemoryDatabase("SampleAppDatabase").Options)
-        {
-
-        }
-
-        public SampleAppDbContext(IDbContextObjectsProvider dbContextCreationOptionsProvider)
-              : base("SampleAppDatabase", dbContextCreationOptionsProvider)
+        public SampleAppDbContext(DbContextOptions<SampleAppDbContext> options)
+              : base(options)
         {
 
         }

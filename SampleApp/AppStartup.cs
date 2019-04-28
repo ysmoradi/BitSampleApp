@@ -1,6 +1,5 @@
 ﻿using Bit.Core;
 using Bit.Core.Contracts;
-using Bit.Data.EntityFrameworkCore.Implementations;
 using Bit.IdentityServer.Contracts;
 using Bit.IdentityServer.Implementations;
 using Bit.Model.Implementations;
@@ -9,10 +8,10 @@ using Bit.OData.Contracts;
 using Bit.Owin.Exceptions;
 using Bit.Owin.Implementations;
 using Bit.OwinCore;
-using Bit.OwinCore.Contracts;
 using Bit.OwinCore.Middlewares;
 using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SampleApp.DataAccess;
 using SampleApp.DataAccess.Implementations;
@@ -61,11 +60,11 @@ namespace SampleApp
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            /*services.AddResponseCompression(); // => It's not working with AllowSynchronousIO = false; 
+            services.AddResponseCompression();
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
                 aspNetCoreApp.UseResponseCompression();
-            });*/
+            });
 
             services.AddCors();
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
@@ -122,7 +121,10 @@ namespace SampleApp
             });
 
             //dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>(); // InMemory: See line below!
-            dependencyManager.RegisterEfCoreDbContext<SampleAppDbContext, InMemoryDbContextObjectsProvider>();
+            dependencyManager.RegisterEfCoreDbContext<SampleAppDbContext>((serviceProvider, options) =>
+            {
+                options.UseInMemoryDatabase("SampleAppDb");
+            });
             dependencyManager.RegisterAppEvents<SampleAppDbContextInitializer>();
             dependencyManager.RegisterRepository(typeof(SampleAppRepository<>).GetTypeInfo());
 
@@ -155,7 +157,7 @@ namespace SampleApp
     }
     public class SampleAppUserService : UserService
     {
-        public override async Task<string> GetUserIdByLocalAuthenticationContextAsync(LocalAuthenticationContext context, CancellationToken cancellationToken)
+        public async override Task<BitJwtToken> LocalLogin(LocalAuthenticationContext context, CancellationToken cancellationToken)
         {
             string username = context.UserName;
             string password = context.Password;
@@ -167,14 +169,9 @@ namespace SampleApp
                 throw new ArgumentException(nameof(password));
 
             if (username == password)
-                return username;
+                return new BitJwtToken { UserId = username };
 
             throw new DomainLogicException("LoginFailed");
-        }
-
-        public override async Task<bool> UserIsActiveAsync(IsActiveContext context, string userId, CancellationToken cancellationToken)
-        {
-            return true;
         }
     }
 }
