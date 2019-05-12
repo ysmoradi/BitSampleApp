@@ -21,7 +21,7 @@
     "core-js": "^2.6.5",
     "rxjs": "^6.5.1",
     "zone.js": "^0.9.0",
-    "@bit/bit-framework": "^2.2.0",
+    "@bit/bit-framework": "^2.3.0",
     "@bit/jaydata": "^1.5.19"
   },
   "devDependencies": {
