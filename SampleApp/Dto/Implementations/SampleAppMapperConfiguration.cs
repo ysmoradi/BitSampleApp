@@ -10,7 +10,10 @@ namespace SampleApp.Dto.Implementations
         public virtual void Configure(IMapperConfigurationExpression mapperConfigExpression)
         {
             mapperConfigExpression.CreateMap<Category, CategoryDto>()
-                .ForMember(category => category.AllProductsAreActive, config => config.MapFrom(category => category.Products.All(p => p.IsActive == true)));
+                .ForMember(category => category.AllProductsAreActive, config => config.MapFrom(category => category.Products.All(p => p.IsActive == true)))
+                .ReverseMap();
+
+            mapperConfigExpression.CreateMap<Product, ProductDto>().ReverseMap();
         }
     }
 }
