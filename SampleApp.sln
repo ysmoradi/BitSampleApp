@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp", "SampleApp\Samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp.Test", "SampleApp.Test\SampleApp.Test.csproj", "{2EB18AC8-9FC6-4AEC-B1B6-2D0330A818AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{CEDD9968-8E6F-40EF-88C1-3BE961836AF3}"
+	ProjectSection(SolutionItems) = preProject
+		BitConfig.json = BitConfig.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
