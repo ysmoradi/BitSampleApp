@@ -19,8 +19,6 @@ namespace SampleApp.Test
 
             args.CustomAppModulesProvider = args.CustomAppModulesProvider ?? new SampleAppModulesProvider();
 
-            args.UseAspNetCore = true;
-
             return args;
         }
 

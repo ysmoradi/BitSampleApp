@@ -1,5 +1,5 @@
-﻿using Bit.OData.ODataControllers;
-using Bit.Owin.Exceptions;
+﻿using Bit.Core.Exceptions;
+using Bit.OData.ODataControllers;
 using SampleApp.Dto;
 using SampleApp.Model;
 using System;
