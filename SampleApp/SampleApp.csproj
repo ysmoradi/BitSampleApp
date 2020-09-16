@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="5.8.0" />
-    <PackageReference Include="Bit.Server.IdentityServer" Version="5.8.0" />
-    <PackageReference Include="Bit.Server.OData" Version="5.8.0" />
-    <PackageReference Include="Bit.Server.Owin" Version="5.8.0" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="5.8.0" />
-    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="5.8.0" />
-    <PackageReference Include="Bit.Universal.AutoMapper" Version="5.8.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-preview.8.20407.4" />
+    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="5.9.1" />
+    <PackageReference Include="Bit.Server.IdentityServer" Version="5.9.1" />
+    <PackageReference Include="Bit.Server.OData" Version="5.9.1" />
+    <PackageReference Include="Bit.Server.Owin" Version="5.9.1" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="5.9.1" />
+    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="5.9.1" />
+    <PackageReference Include="Bit.Universal.AutoMapper" Version="5.9.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-rc.1.20451.13" />
     <PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
   </ItemGroup>
 
