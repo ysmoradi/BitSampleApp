@@ -3,6 +3,8 @@ using Bit.OData.ODataControllers;
 using SampleApp.Dto;
 using SampleApp.Model;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +38,52 @@ namespace SampleApp.Api
             {
                 throw new ResourceNotFoundException("ProductNotFound", ex);
             }
+        }
+
+        public class HashSampleArgs
+        {
+            public Guid Id { get; set; }
+
+            public string Hash { get; set; }
+        }
+
+        [Action]
+        public async Task HashSample(HashSampleArgs args)
+        {
+            string input = args.Id.ToString().Split('-')[0];
+
+            string hashedInput = input.Hash();
+
+            if (args.Hash != hashedInput)
+                throw new BadRequestException("invalid hash");
+
+            // the rest of the logic...
+        }
+    }
+
+    public static class HashExtensions
+    {
+        public static string Hash(this string input)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(input);
+
+            using SHA256Managed generator = new SHA256Managed();
+
+            byte[] hash = generator.ComputeHash(bytes);
+
+            return BytesToHex(hash);
+        }
+
+        private static string BytesToHex(byte[] bytes)
+        {
+            StringBuilder hex = new StringBuilder(bytes.Length * 2);
+
+            foreach (byte b in bytes)
+            {
+                hex.AppendFormat("{0:x2}", b);
+            }
+
+            return hex.ToString();
         }
     }
 }

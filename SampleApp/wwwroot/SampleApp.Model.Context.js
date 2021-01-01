@@ -109,6 +109,21 @@ SampleAppContext = $data.EntityContext.extend("SampleAppContext", {
 																							},									
 																			]
 						},
+													"hashSample": {
+								"type": "$data.ServiceAction",
+																	"namespace": null,
+																"returnType":  null ,
+																	"params": [
+																					{
+												"name": "Id",
+												"type": "Edm.Guid",
+																							},									
+																					{
+												"name": "Hash",
+												"type": "Edm.String",
+																							},									
+																			]
+						},
 										}
 					},
 	});

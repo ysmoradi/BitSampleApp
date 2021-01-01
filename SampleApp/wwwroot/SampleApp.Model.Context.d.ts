@@ -66,6 +66,8 @@ declare module SampleApp.Dto {
 	interface ProductsEntitySet extends $data.EntitySet<SampleApp.Dto.ProductDto>{
 				    
 		    deactivateProductById(id : string):  Promise<void> ;
+				    
+		    hashSample(Id : string,Hash : string):  Promise<void> ;
 			}
 
 declare class SampleAppContext extends $data.EntityContext {

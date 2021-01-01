@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import jsSHA from "jssha";
 import { EntityContextProvider, SecurityService, GuidUtils, SyncService, ClientAppProfile } from './bit';
 
 @Component({
@@ -17,6 +18,18 @@ export class AppComponent {
     await SecurityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret");
 
     const context = await EntityContextProvider.getContext<SampleAppContext>("SampleApp");
+
+    const id = "9cc7f05f-512f-4ad1-bba5-7c8cb02039d6";
+
+    const alg: any = "SHA-256";
+
+    const shaObj = new jsSHA(alg, "TEXT", { encoding: "UTF8" });
+
+    shaObj.update(id.split("-")[0]);
+
+    await context.products.hashSample(id, shaObj.getHash("HEX")); // the logic of your app is something else. This code is for testing purposes only.
+
+    return;
 
     // function
     const t1 = await context.categories.getEmptyCategories()
