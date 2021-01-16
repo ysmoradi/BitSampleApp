@@ -9,9 +9,9 @@ using Bit.OData.ActionFilters;
 using Bit.OData.Contracts;
 using Bit.Owin;
 using Bit.Owin.Implementations;
-using Bit.Owin.Middlewares;
 using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SampleApp.DataAccess;
@@ -20,9 +20,11 @@ using SampleApp.Dto.Implementations;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 [assembly: ODataModule("SampleApp")]
 
@@ -61,7 +63,19 @@ namespace SampleApp
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            services.AddResponseCompression();
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+            }).Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            }).Configure<BrotliCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            });
+
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
                 aspNetCoreApp.UseResponseCompression();
@@ -72,8 +86,6 @@ namespace SampleApp
             {
                 aspNetCoreApp.UseCors(c => c.AllowAnyOrigin());
             });
-
-            dependencyManager.RegisterAspNetCoreMiddleware<AspNetCoreStaticFilesMiddlewareConfiguration>();
 
             dependencyManager.RegisterMinimalAspNetCoreMiddlewares();
 
@@ -94,11 +106,7 @@ namespace SampleApp
 
                 webApiDependencyManager.RegisterGlobalWebApiCustomizerUsing(httpConfiguration =>
                 {
-                    httpConfiguration.EnableSwagger(c =>
-                    {
-                        c.SingleApiVersion("v1", $"Swagger-Api");
-                        c.ApplyDefaultApiConfig(httpConfiguration);
-                    }).EnableBitSwaggerUi();
+                    httpConfiguration.EnableMultiVersionWebApiSwaggerWithUI();
                 });
             });
 
