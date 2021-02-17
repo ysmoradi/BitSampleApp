@@ -8,12 +8,16 @@ using Bit.Model.Implementations;
 using Bit.OData.ActionFilters;
 using Bit.OData.Contracts;
 using Bit.Owin;
+using Bit.Owin.Contracts;
 using Bit.Owin.Implementations;
+using Bit.WebApi.ActionFilters;
 using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Owin;
 using SampleApp.DataAccess;
 using SampleApp.DataAccess.Implementations;
 using SampleApp.Dto.Implementations;
@@ -21,10 +25,14 @@ using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
 using System.IO.Compression;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Filters;
 
 [assembly: ODataModule("SampleApp")]
 
@@ -101,6 +109,7 @@ namespace SampleApp
 
                 webApiDependencyManager.RegisterGlobalWebApiActionFiltersUsing(httpConfiguration =>
                 {
+                    httpConfiguration.Filters.Add(new AppExceptionHandlerFilterAttribute());
                     httpConfiguration.Filters.Add(new System.Web.Http.AuthorizeAttribute());
                 });
 
@@ -114,6 +123,7 @@ namespace SampleApp
             {
                 odataDependencyManager.RegisterGlobalWebApiActionFiltersUsing(httpConfiguration =>
                 {
+                    httpConfiguration.Filters.Add(new AppExceptionHandlerFilterAttribute());
                     httpConfiguration.Filters.Add(new DefaultODataAuthorizeAttribute());
                 });
 
@@ -181,6 +191,26 @@ namespace SampleApp
                 return new BitJwtToken { UserId = username };
 
             throw new DomainLogicException("LoginFailed");
+        }
+    }
+
+    public class AppExceptionHandlerFilterAttribute : ExceptionHandlerFilterAttribute
+    {
+        protected override HttpResponseMessage CreateErrorResponseMessage(HttpActionExecutedContext actionExecutedContext, IExceptionToHttpErrorMapper exceptionToHttpErrorMapper, Exception exception)
+        {
+            IDependencyResolver resolver = actionExecutedContext.Request.GetOwinContext().GetDependencyResolver();
+            ILogger logger = resolver.Resolve<ILogger>();
+            HttpContext httpContext = resolver.Resolve<IHttpContextAccessor>().HttpContext;
+            string logNumber = $"{(DateTimeOffset.UtcNow.UtcTicks / 10) % 1000000000:d9}";
+            httpContext.Request.Headers.Remove("X-Correlation-ID");
+            httpContext.Request.Headers.Add("X-Correlation-ID", new string[] { logNumber });
+            logger.LogData.Single(i => i.Key == "X-Correlation-ID").Value = logNumber;
+
+            return actionExecutedContext.Request.CreateResponse(exceptionToHttpErrorMapper.GetStatusCode(exception), new
+            {
+                Code = logNumber,
+                Message = exceptionToHttpErrorMapper.GetMessage(exception)
+            }, new JsonMediaTypeFormatter());
         }
     }
 }
