@@ -1,4 +1,5 @@
 ﻿using Bit.Data.Contracts;
+using Bit.Http.Contracts;
 using Bit.Test;
 using FakeItEasy;
 using IdentityModel.Client;
@@ -33,7 +34,7 @@ namespace SampleApp.Test.Api
                 }
             }))
             {
-                TokenResponse token = await testEnvironment.Server.Login("Test", "Test", "SampleApp-ResOwner");
+                Token token = await testEnvironment.Server.LoginWithCredentials("Test", "Test", "SampleApp-ResOwner");
 
                 IODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
 
@@ -64,7 +65,7 @@ namespace SampleApp.Test.Api
                 }
             }))
             {
-                TokenResponse token = await testEnvironment.Server.Login("Test", "Test", "SampleApp-ResOwner");
+                Token token = await testEnvironment.Server.LoginWithCredentials("Test", "Test", "SampleApp-ResOwner");
 
                 IODataClient client = testEnvironment.Server.BuildODataClient(odataRouteName: "SampleApp", token: token);
 
