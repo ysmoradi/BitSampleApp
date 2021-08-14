@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
+using SampleApp;
 using SampleApp.DataAccess;
 using SampleApp.DataAccess.Implementations;
 using SampleApp.Dto.Implementations;
@@ -35,23 +36,12 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 
 [assembly: ODataModule("SampleApp")]
+[assembly: AppModule(typeof(SampleAppModulesProvider))]
 
 namespace SampleApp
 {
-    public class AppStartup : AutofacAspNetCoreAppStartup
+    public class AppStartup : AspNetCoreAppStartup
     {
-        public AppStartup(IServiceProvider serviceProvider)
-            : base(serviceProvider)
-        {
-
-        }
-
-        public override IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            DefaultAppModulesProvider.Current = new SampleAppModulesProvider();
-
-            return base.ConfigureServices(services);
-        }
     }
 
     public class SampleAppModulesProvider : IAppModule, IAppModulesProvider
@@ -63,8 +53,6 @@ namespace SampleApp
 
         public virtual void ConfigureDependencies(IServiceCollection services, IDependencyManager dependencyManager)
         {
-            AssemblyContainer.Current.Init();
-
             dependencyManager.RegisterMinimalDependencies();
 
             dependencyManager.RegisterDefaultLogger(typeof(DebugLogStore).GetTypeInfo(), typeof(ConsoleLogStore).GetTypeInfo());

@@ -1,4 +1,5 @@
-﻿using Bit.Test;
+﻿using Bit.Core;
+using Bit.Test;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,6 +8,12 @@ namespace SampleApp.Test
 {
     public class BitOwinTestEnvironment : TestEnvironmentBase
     {
+        static BitOwinTestEnvironment()
+        {
+            AssemblyContainer.Current.Init();
+            AssemblyContainer.Current.AddAppAssemblies(typeof(AppStartup).Assembly);
+        }
+
         public BitOwinTestEnvironment(TestEnvironmentArgs args = null)
             : base(ApplyArgsDefaults(args))
         {
@@ -16,8 +23,6 @@ namespace SampleApp.Test
         private static TestEnvironmentArgs ApplyArgsDefaults(TestEnvironmentArgs args)
         {
             args = args ?? new TestEnvironmentArgs();
-
-            args.CustomAppModulesProvider = args.CustomAppModulesProvider ?? new SampleAppModulesProvider();
 
             return args;
         }

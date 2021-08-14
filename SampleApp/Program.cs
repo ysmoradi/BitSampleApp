@@ -1,18 +1,24 @@
-﻿using Bit.Owin;
+﻿using Bit.Core;
+using Bit.Owin;
+using Bit.Owin.Implementations;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace SampleApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            AssemblyContainer.Current.Init();
+
+            await BuildWebHost(args)
+                .RunAsync();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            BitWebHost.CreateDefaultBuilder(args)
-                .UseStartup<AppStartup>()
+        public static IHost BuildWebHost(string[] args) =>
+            BitWebHost.CreateWebHost<AppStartup>(args)
                 .Build();
     }
 }
