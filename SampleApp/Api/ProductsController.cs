@@ -1,8 +1,11 @@
 ﻿using Bit.Core.Exceptions;
+using Bit.Core.Exceptions.Contracts;
 using Bit.OData.ODataControllers;
 using SampleApp.Dto;
 using SampleApp.Model;
 using System;
+using System.Net;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +21,8 @@ namespace SampleApp.Api
         [Action]
         public virtual async Task DeactivateProductById(DeactivateProductByIdArgs args, CancellationToken cancellationToken)
         {
+            throw new TooManyRequestsException("/-:");
+
             try
             {
                 Product product = await Repository.GetByIdAsync(cancellationToken, args.id);
@@ -37,5 +42,32 @@ namespace SampleApp.Api
                 throw new ResourceNotFoundException("ProductNotFound", ex);
             }
         }
+    }
+
+    [Serializable]
+    public class TooManyRequestsException : AppException, IHttpStatusCodeAwareException
+    {
+        public TooManyRequestsException()
+            : this(ExceptionMessageKeys.DomainLogicException)
+        {
+        }
+
+        public TooManyRequestsException(string message)
+            : base(message)
+        {
+        }
+
+        public TooManyRequestsException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+
+        }
+
+        protected TooManyRequestsException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+
+        public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.TooManyRequests;
     }
 }

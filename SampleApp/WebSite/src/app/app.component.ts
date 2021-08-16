@@ -14,6 +14,30 @@ export class AppComponent {
 
   public async test() {
 
+    const original$dataPromiseHandlerBaseDefaultErrorCallback = $data["PromiseHandlerBase"]["defaultErrorCallback"];
+
+    $data["PromiseHandlerBase"]["defaultErrorCallback"] = function overrided$dataPromiseHandlerBaseDefaultErrorCallback(exception) {
+      debugger;
+      try {
+        const dataList = exception?.data;
+        if (dataList != null && dataList[0] != null) {
+          const data = dataList[0];
+          const statusCode: number = data.response?.statusCode;
+          const message = data.response?.body != null && data.response.statusText == "KnownError" ? JSON.parse(data.response.body).Message : "UnknownError";
+          exception.statusCode = statusCode;
+          exception.message = message;
+          if (statusCode == 401) {
+            // navigate to login form
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      finally {
+        return original$dataPromiseHandlerBaseDefaultErrorCallback.apply(this, arguments);
+      }
+    };
+
     await SecurityService.loginWithCredentials("Test", "Test", "SampleApp-ResOwner", "secret");
 
     const context = await EntityContextProvider.getContext<SampleAppContext>("SampleApp");
@@ -40,8 +64,10 @@ export class AppComponent {
       await context.products.deactivateProductById(GuidUtils.newGuid());
     }
     catch (e) {
+      debugger;
       // error messages
       console.log(e.message);
+      console.log(e.statusCode);
     }
 
     // batch save
