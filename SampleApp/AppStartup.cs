@@ -36,7 +36,7 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 
 [assembly: ODataModule("SampleApp")]
-[assembly: AppModule(typeof(SampleAppModulesProvider))]
+[assembly: AppModule(typeof(SampleAppModule))]
 
 namespace SampleApp
 {
@@ -44,13 +44,8 @@ namespace SampleApp
     {
     }
 
-    public class SampleAppModulesProvider : IAppModule, IAppModulesProvider
-    {
-        public IEnumerable<IAppModule> GetAppModules()
-        {
-            yield return this;
-        }
-
+    public class SampleAppModule : IAppModule
+    { 
         public virtual void ConfigureDependencies(IServiceCollection services, IDependencyManager dependencyManager)
         {
             dependencyManager.RegisterMinimalDependencies();
