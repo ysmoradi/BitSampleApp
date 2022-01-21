@@ -13,11 +13,11 @@ namespace SampleApp.DataAccess.Implementations
 
         public virtual void OnAppStartup()
         {
-            using (IDependencyResolver dependencyResolver = DependencyManager.CreateChildDependencyResolver())
+            DependencyManager.TransactionAction("Create Database", async resolver =>
             {
-                SampleAppDbContext dbContext = dependencyResolver.Resolve<SampleAppDbContext>();
+                SampleAppDbContext dbContext = resolver.Resolve<SampleAppDbContext>();
                 dbContext.Database.EnsureCreated();
-            }
+            }).GetAwaiter().GetResult();
         }
     }
 }

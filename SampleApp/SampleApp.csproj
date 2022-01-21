@@ -2,20 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.5</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.IdentityServer" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.OData" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.Owin" Version="8.3.0" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.3.0" />
-    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.3.0" />
-    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0-rc.1.21452.10" />
-    <PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
+    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.IdentityServer" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.OData" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.Owin" Version="8.8.0" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.8.0" />
+    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.8.0" />
+    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
