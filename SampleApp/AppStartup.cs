@@ -10,6 +10,7 @@ using Bit.OData.Contracts;
 using Bit.Owin;
 using Bit.Owin.Contracts;
 using Bit.Owin.Implementations;
+using Bit.Owin.Middlewares;
 using Bit.WebApi.ActionFilters;
 using IdentityServer3.Core.Models;
 using Microsoft.AspNetCore.Builder;
@@ -71,6 +72,7 @@ namespace SampleApp
             {
                 aspNetCoreApp.UseResponseCompression();
             });
+            dependencyManager.RegisterAspNetCoreMiddleware<AspNetCoreStaticFilesMiddlewareConfiguration>();
 
             services.AddCors();
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
